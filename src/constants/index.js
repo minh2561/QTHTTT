@@ -1,0 +1,4 @@
+export const constants = {
+  GET_DATA_SUCCESS: "GET_DATA_SUCCESS",
+  GET_DATA_FAILURE:"GET_DATA_FAILURE"
+};

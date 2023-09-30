@@ -1,6 +1,7 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { redirect, Route } from "react-router-dom";
 import Cookies from "js-cookie";
+
 import { routes } from "../configs/routes";
 
 const ProtectedRoute = (props) => {
@@ -11,13 +12,7 @@ const ProtectedRoute = (props) => {
     return <Route {...rest} />;
   }
 
-  return (
-    <Redirect
-      to={{
-        pathname: routes.login,
-      }}
-    />
-  );
+  return redirect("/login");
 };
 
 export default ProtectedRoute;

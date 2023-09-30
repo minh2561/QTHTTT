@@ -5,52 +5,81 @@ import styled from "styled-components";
 import Loginbackground from "../../assets/images/login-background.jpg";
 import { toast } from "react-toastify";
 
-const LoginPageStyle = styled.div`
+const RegisterPageStyle = styled.div`
   background-image: url(${Loginbackground});
   background-size: cover;
   background-position: center;
   width: 100%;
   height: 100vh;
+  input {
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    flex-grow: 1;
+  }
 `;
-export default function LoginPage() {
-  const [loginForm, setLoginForm] = useState({});
+export default function RegisterPage() {
+  const [registerForm, setRegisterForm] = useState({});
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.testReducer.data);
 
   const handleChangeData = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setLoginForm((prevForm) => ({
+    setRegisterForm((prevForm) => ({
       ...prevForm,
       [name]: value,
     }));
   };
 
-  useEffect(() => {
-    dispatch(authAction.getData());
-  }, []);
-
-
+  const handleRegister = () => {};
   return (
-    <LoginPageStyle>
+    <RegisterPageStyle>
       <div className="w-full h-screen flex justify-center items-center">
-        <div className="w-[500px] bg-[#fff]">
+        <div className="w-[500px] rounded-[15px]">
           <div class="form-container p-[20px]">
             <h2>Đăng Ký</h2>
             <form className="flex flex-col gap-[10px]">
-              <label for="name">Họ và Tên:</label>
+              <div className="flex">
+                <i className="fas fa-user"></i>
+                <input
+                  placeholder="Tên khách hàng"
+                  type="text"
+                  name="name"
+                  onChange={handleChangeData}
+                />
+              </div>
+
+              <div className="flex">
+              <label for="phoneNumber">Số điện thoại:</label>
               <input
                 type="text"
-                id="name"
-                name="userName"
+                id="phoneNumber"
+                name="phoneNumber"
+                onChange={handleChangeData}
+              />
+              </div>
+
+              <label for="address">Địa chỉ:</label>
+              <input
+                type="text"
+                id="address"
+                name="address"
                 onChange={handleChangeData}
               />
 
               <label for="email">Email:</label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
+                onChange={handleChangeData}
+              />
+
+              <label for="userName">Tên đăng nhập:</label>
+              <input
+                type="text"
+                id="userName"
+                name="userName"
                 onChange={handleChangeData}
               />
 
@@ -67,6 +96,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-    </LoginPageStyle>
+    </RegisterPageStyle>
   );
 }
