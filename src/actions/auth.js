@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { constants as c } from "../constants";
 import { auth } from "../services/auth";
 
@@ -11,11 +12,20 @@ const getData = () => {
   };
 };
 
-const register = (data) => {
+const register = (data,onSuccess) => {
   return async (dispatch) => {
-    const response = await auth.register(data)
-    
+    try {
+      const response = await auth.register(data)
+      if(response.errorCode === 0){
+        toast.success(response.messageCode)
+        onSuccess()
+      }else{
+        toast.error(response.messageCode)
+      }
+    } catch (error) {
+      console.log('error',error);
+    }
   }
 }
 
-export const authAction = { getData };
+export const authAction = { getData,register };
