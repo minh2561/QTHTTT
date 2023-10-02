@@ -1,48 +1,38 @@
 import { toast } from "react-toastify";
-import { constants as c } from "../constants";
 import { auth } from "../services/auth";
+import Cookies from "js-cookie";
 
-const getData = () => {
+const register = (data, onSuccess) => {
   return async (dispatch) => {
-    const response = await auth.getData();
-    dispatch({
-      type: c.GET_DATA_SUCCESS,
-      data: response,
-    });
+    try {
+      const response = await auth.register(data);
+      if (response.errorCode === 0) {
+        toast.success(response.messageCode);
+        onSuccess();
+      } else {
+        toast.error(response.messageCode);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 };
 
-const register = (data,onSuccess) => {
+const login = (data, onSuccess) => {
   return async (dispatch) => {
     try {
-      const response = await auth.register(data)
-      if(response.errorCode === 0){
-        toast.success(response.messageCode)
-        onSuccess()
-      }else{
-        toast.error(response.messageCode)
+      const response = await auth.login(data);
+      if (response.errorCode === 0) {
+        Cookies.set("token", response.data.token);
+        toast.success(response.messageCode);
+        onSuccess();
+      } else {
+        toast.error(response.messageCode);
       }
     } catch (error) {
-      console.log('error',error);
+      console.log("error", error);
     }
-  }
-}
+  };
+};
 
-
-const login = (data,onSuccess) => {
-  return async (dispatch) => {
-    try {
-      const response = await auth.login(data)
-      if(response.errorCode === 0){
-        toast.success(response.messageCode)
-        onSuccess()
-      }else{
-        toast.error(response.messageCode)
-      }
-    } catch (error) {
-      console.log('error',error);
-    }
-  }
-}
-
-export const authAction = { getData,register,login };
+export const authAction = {  register, login };

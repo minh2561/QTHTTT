@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-
 export default function Homepage() {
-  return <div className="">Đây là trang home page</div>;
+  return <div className="">Mấy con đĩ code giao diện đi</div>;
 }
