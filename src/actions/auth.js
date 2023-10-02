@@ -28,4 +28,21 @@ const register = (data,onSuccess) => {
   }
 }
 
-export const authAction = { getData,register };
+
+const login = (data,onSuccess) => {
+  return async (dispatch) => {
+    try {
+      const response = await auth.login(data)
+      if(response.errorCode === 0){
+        toast.success(response.messageCode)
+        onSuccess()
+      }else{
+        toast.error(response.messageCode)
+      }
+    } catch (error) {
+      console.log('error',error);
+    }
+  }
+}
+
+export const authAction = { getData,register,login };

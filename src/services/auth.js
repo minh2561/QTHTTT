@@ -5,7 +5,11 @@ const getData = () => {
 };
 
 const register = (data) => {
-  return httpPost("nhatj.id.vn:8088/user/register", data)
+  return httpPost("http://nhatj.id.vn:8088/user/register", data)
 }
 
-export const auth = { getData, register };
+const login = (data) => {
+  return httpPost("http://nhatj.id.vn:8088/user/login", data)
+}
+
+export const auth = { getData, register, login };

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { authAction } from "../../actions/auth";
 import styled from "styled-components";
 import Loginbackground from "../../assets/images/login-background.jpg";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPageStyle = styled.div`
@@ -70,14 +69,6 @@ export default function RegisterPage() {
                 />
               </div>
 
-              <label for="address">Địa chỉ:</label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                onChange={handleChangeData}
-              />
-
               <label for="email">Email:</label>
               <input
                 type="text"
@@ -86,19 +77,11 @@ export default function RegisterPage() {
                 onChange={handleChangeData}
               />
 
-              <label for="userName">Tên đăng nhập:</label>
-              <input
-                type="text"
-                id="userName"
-                name="userName"
-                onChange={handleChangeData}
-              />
-
               <label for="password">Mật khẩu:</label>
               <input
                 type="password"
                 id="password"
-                name="passWord"
+                name="password"
                 onChange={handleChangeData}
               />
 

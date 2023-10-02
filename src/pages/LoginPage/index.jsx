@@ -4,6 +4,7 @@ import { authAction } from "../../actions/auth";
 import styled from "styled-components";
 import Loginbackground from "../../assets/images/login-background.jpg";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const LoginPageStyle = styled.div`
   background-image: url(${Loginbackground});
@@ -14,6 +15,7 @@ const LoginPageStyle = styled.div`
 `;
 export default function LoginPage() {
   const [loginForm, setLoginForm] = useState({});
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const data = useSelector((state) => state.testReducer.data);
 
@@ -26,26 +28,21 @@ export default function LoginPage() {
     }));
   };
 
-  useEffect(() => {
-    dispatch(authAction.getData());
-  }, []);
+  const onSuccess = ()=>{
+    navigate('/')
+  }
 
-
+  const handleLogin = (e)=>{
+    e.preventDefault();
+    dispatch(authAction.login(loginForm,onSuccess))
+  }
   return (
     <LoginPageStyle>
       <div className="w-full h-screen flex justify-center items-center">
         <div className="w-[500px] bg-[#fff]">
           <div class="form-container p-[20px]">
-            <h2>Đăng Ký</h2>
-            <form className="flex flex-col gap-[10px]">
-              <label for="name">Họ và Tên:</label>
-              <input
-                type="text"
-                id="name"
-                name="userName"
-                onChange={handleChangeData}
-              />
-
+            <h2>Đăng nhập</h2>
+            <form className="flex flex-col gap-[10px]" onSubmit={handleLogin}>
               <label for="email">Email:</label>
               <input
                 type="email"
@@ -58,11 +55,11 @@ export default function LoginPage() {
               <input
                 type="password"
                 id="password"
-                name="passWord"
+                name="password"
                 onChange={handleChangeData}
               />
 
-              <button type="submit">Đăng Ký</button>
+              <button type="submit">Đăng nhập</button>
             </form>
           </div>
         </div>
